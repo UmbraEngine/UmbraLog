@@ -1,9 +1,13 @@
 #pragma once
 
+#include <chrono>
+#include <ctime>
 #include <format>
+#include <fstream>
+#include <iostream>
 #include <utility>
-#include "core.h"
-#include "pch.h"
+#include <sstream>
+#include <string>
 
 const int LOG_LEVEL_TRACE = 0;
 const int LOG_LEVEL_DEBUG = 1;

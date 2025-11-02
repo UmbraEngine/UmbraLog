@@ -1,8 +1,8 @@
-#include "log.h"
-#include "logger.h"
+#include <umbra/log.h>
+#include <umbra/logger.h>
 
-
-int main(){
+int main()
+{
   Umbra::Logging::Log::init();
   LOG_CORE_TRACE("{} Testing Internal Trace Logging", 1);
   LOG_CORE_DEBUG("{} Testing Internal Debug Logging", 2);
@@ -17,5 +17,4 @@ int main(){
   LOG_WARNING("{} Testing Warning Logging", 10);
   LOG_ERROR("{} Testing Error Logging", 11);
   LOG_FATAL("{} Testing Fatal Logging", 12);
-
 }

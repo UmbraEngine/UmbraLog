@@ -1,59 +1,60 @@
 cmake_minimum_required(VERSION 3.31.6)
+project(
+  UmbraLog
+  VERSION 1.0.0
+  LANGUAGES CXX)
+
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
 set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
 
-project(UmbraLogging VERSION 1.0.0)
+# -------------------------
+# Library target
+# -------------------------
+add_library(umbra_log STATIC src/log.cpp src/logger.cpp)
 
-add_library(UmbraLogging STATIC
-  src/log.cpp
-  src/logger.cpp
-)
+# -------------------------
+# Test executable
+# -------------------------
+add_executable(test_UmbraLog test/test_main.cpp)
 
-add_executable(test_UmbraLogging 
-  test/test_main.cpp
-  src/log.cpp
-  src/logger.cpp
-)
+target_link_libraries(test_UmbraLog PRIVATE umbra_log)
 
-target_link_libraries(test_UmbraLogging PRIVATE UmbraLogging)
+# -------------------------
+# Include directories
+# -------------------------
+target_include_directories(
+  umbra_log PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+                   $<INSTALL_INTERFACE:include>)
 
+# -------------------------
+# Shared build define (optional)
+# -------------------------
+if(BUILD_SHARED_LIBS)
+  target_compile_definitions(umbra_log PRIVATE UMBRA_BUILD_DLL)
+endif()
+
+# -------------------------
+# Compiler features + PCH
+# -------------------------
+target_compile_features(umbra_log PRIVATE cxx_std_20)
+target_precompile_headers(umbra_log PRIVATE include/pch/log-pch.h)
+
+# -------------------------
+# Installation
+# -------------------------
 include(GNUInstallDirs)
 
-target_include_directories(UmbraLogging PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:include>
-)
+install(
+  TARGETS umbra_log
+  EXPORT UmbraLogTargets
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
-add_compile_definitions(UMBRA_BUILD_DLL)
+install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-target_compile_features(UmbraLogging PRIVATE cxx_std_20)
-
-target_precompile_headers(UmbraLogging PRIVATE include/pch.h)
-
-# Allow installation
-install(TARGETS UmbraLogging
-  EXPORT UmbraLoggingTargets
-  ARCHIVE DESTINATION lib
-)
-
-install(DIRECTORY include/ DESTINATION include)
-install(EXPORT UmbraLoggingTargets
-  FILE UmbraLoggingTargets.cmake
+install(
+  EXPORT UmbraLogTargets
+  FILE UmbraLogTargets.cmake
   NAMESPACE Umbra::
-  DESTINATION lib/cmake/UmbraLogging
-)
-install(FILES
-  ${CMAKE_CURRENT_SOURCE_DIR}/include/core.h
-  DESTINATION include/UmbraLogging
-
-)
-
-# Setup system link to compile_commands directory for LSP config In NeoVim.
-# This needs additional setup in the LspConfig file in the NeoVim config directory
-# If you are not using NeoVim, you can remove this.
-add_custom_command(
-    TARGET ${PROJECT_NAME} POST_BUILD
-    COMMAND ln -sf ${CMAKE_BINARY_DIR}/compile_commands.json ~/.config/clangd/compile_commands/compile_commands.json
-)
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/UmbraLog)

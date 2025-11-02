@@ -1,4 +1,4 @@
-# Umbra Logging 
+# Umbra Log
 
 A lightweight C++ logging library for game development.
 

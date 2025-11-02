@@ -2,11 +2,7 @@
 // Created by Dean Wilson on 2025/01/20
 //
 
-#include "log.h"
-
-// TODO: can these be deleted?
-// using std::make_shared;
-// using std::shared_ptr;
+#include <umbra/log.h>
 
 namespace Umbra {
 namespace Logging {
@@ -18,6 +14,12 @@ void Log::init(bool enableClientDebugLogging)
 {
   CoreLogger = std::make_shared<Logger>("Umbra", true);
   ClientLogger = std::make_shared<Logger>("Client", enableClientDebugLogging);
+}
+
+void Log::init(std::string fileName, bool enableClientDebugLogging)
+{
+  CoreLogger = std::make_shared<Logger>("Umbra", fileName, true);
+  ClientLogger = std::make_shared<Logger>("Client", fileName, enableClientDebugLogging);
 }
 
 }  // namespace Logging

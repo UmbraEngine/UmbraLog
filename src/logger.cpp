@@ -2,7 +2,7 @@
 // Created by Dean Wilson on 2023/9/27
 //
 
-#include "logger.h"
+#include <umbra/logger.h>
 
 namespace Umbra {
 namespace Logging {
