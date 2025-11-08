@@ -3,7 +3,10 @@
 //
 
 #include <umbra/logger.h>
+#include <umbra/common/clock-sync.h>
+#include <chrono>
 #include <filesystem>
+#include <unordered_map>
 
 namespace Umbra {
 namespace Logging {
@@ -67,21 +70,21 @@ std::string Logger::getLevelString(LogLevel level)
   switch (level) {
     // TODO: Add Tracing?
     case LogLevel::Trace:
-      return "[TRACE]: ";
+      return "TRACE";
     case LogLevel::Debug:
-      return "[DEBUG]: ";
+      return "DEBUG";
     case LogLevel::Info:
-      return "[INFO]: ";
+      return "INFO";
     case LogLevel::Warning:
-      return "[WARNING]: ";
+      return "WARNING";
     case LogLevel::Error:
-      return "[ERROR]: ";
+      return "ERROR";
     case LogLevel::Fatal:
-      return "[Fatal]: ";
+      return "FATAL";
     case LogLevel::Off:
-      return "[OFF]: ";
+      return "OFF";
     default:
-      return "[UNKNOWN]: ";
+      return "UNKNOWN";
   }
 }
 
@@ -98,12 +101,13 @@ std::string Logger::getTimestamp()
 void Logger::log(LogLevel level, std::string formattedMessage)
 {
   if (Logger::shouldLogMessage(level)) {
-    std::string levelString = this->getLevelString(level);
-    std::string loggerName = "[" + this->name + "] ";
-    std::string timestamp = this->getTimestamp();
     if (this->logFile.is_open()) {
-      this->logFile << timestamp << loggerName << levelString << formattedMessage << std::endl;
+      this->writeToFile(level, formattedMessage);
     }
+
+    std::string timestamp = this->getTimestamp();
+    std::string loggerName = "[" + this->name + "] ";
+    std::string levelString = "[" + this->getLevelString(level) + "]: ";
     this->setColor(level);
     std::cout << timestamp << loggerName << levelString << formattedMessage << std::endl;
     this->resetColor();
@@ -148,17 +152,94 @@ void Logger::createAndOpenLogFile()
     if (!this->logFile.is_open()) {
       throw std::runtime_error("Failed to open log file: " + filePath.string());
     }
+    this->fileEnabled = true;
   }
   catch (const std::exception& e) {
     std::cerr << "Logger initialization error: " << e.what() << std::endl;
   }
 }
 
-void Logger::closeLogFile(){
-  if(this->logFile.is_open()){
+void Logger::closeLogFile()
+{
+  if (this->logFile.is_open()) {
     this->logFile.close();
+    this->fileEnabled = false;
   }
 }
 
+// 1UP: A LogFileWriter Class would allow for some good cleanup in this file
+void Logger::writeToFile(LogLevel level, std::string message)
+{
+  auto now = ClockSync();
+  auto& entry = this->logCache[message];
+
+  entry.intervalCount++;
+  entry.totalCount++;
+
+  if (std::chrono::duration_cast<std::chrono::seconds>(now.steadyTime - entry.lastLogged.steadyTime)
+          .count() >= 1) {
+    entry.message = message;
+    entry.logLevel = level;
+    this->writeLineToFile(entry);
+    entry.lastLogged = now;
+    entry.intervalCount = 0;
+  }
+  else {
+    entry.message = message;
+    entry.logLevel = level;
+    entry.lastLogged = now;
+    entry.intervalCount = 1;
+    this->writeLineToFile(entry);
+  }
+}
+
+void Logger::writeLineToFile(LogEntry entry)
+{
+  // 1UP: Map to LogFormat for easy reference of file formats in the future
+  // std::unordered_map<std::string, LogFormat> formatMap = {
+  //     {".csv", LogFormat::CSV}, {".json", LogFormat::JSON}
+  // };
+
+  std::filesystem::path path(this->fileName);
+  std::string extension = path.extension().string();
+
+  auto it = this->handlers.find(extension);
+
+  if (it != handlers.end()) {
+    it->second(entry);
+  }
+  else {
+    this->writeLineToPlainTextFileHandler(entry);
+  }
+}
+
+void Logger::writeLineToCsvFileHandler(LogEntry entry)
+{
+  std::string timestamp = ClockSync::systemTimeToString(entry.lastLogged.systemTime);
+
+  this->logFile << timestamp << "," << this->getLevelString(entry.logLevel) << "," << entry.message
+                << "," << std::to_string(entry.intervalCount) << ","
+                << std::to_string(entry.totalCount) << std::endl;
+}
+
+void Logger::writeLineToPlainTextFileHandler(LogEntry entry)
+{
+  std::string timestamp = "[" + ClockSync::systemTimeToString(entry.lastLogged.systemTime) + "]";
+
+  std::string loggerName = "[" + this->name + "] ";
+  std::string levelString = "[" + this->getLevelString(entry.logLevel) + "]: ";
+
+  this->logFile << timestamp << levelString << entry.message << std::endl;
+}
+
+void Logger::writeLineToJsonFileHandler(LogEntry entry)
+{
+  std::string timestamp = ClockSync::systemTimeToString(entry.lastLogged.systemTime);
+
+  // TODO: Convert this to a json format
+  this->logFile << timestamp << "," << this->getLevelString(entry.logLevel) << entry.message << ","
+                << std::to_string(entry.intervalCount) << "," << std::to_string(entry.totalCount)
+                << std::endl;
+}
 }  // namespace Logging
 }  // namespace Umbra

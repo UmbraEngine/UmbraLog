@@ -4,6 +4,8 @@
 #include <format>
 #include <fstream>
 #include <iostream>
+#include <unordered_map>
+#include <umbra/common/clock-sync.h>
 #include <utility>
 #include <string>
 
@@ -23,6 +25,24 @@ enum LogLevel : int {
   Error = LOG_LEVEL_ERROR,
   Fatal = LOG_LEVEL_FATAL,
   Off = LOG_LEVEL_OFF
+};
+
+const int LOG_FORMAT_PLAIN_TEXT = 0;
+const int LOG_FORMAT_CSV = 1;
+const int LOG_FORMAT_JSON = 2;
+
+enum LogFormat : int {
+  PLAIN_TEXT = LOG_FORMAT_PLAIN_TEXT,
+  CSV = LOG_FORMAT_CSV,
+  JSON = LOG_FORMAT_JSON
+};
+
+struct LogEntry {
+  ClockSync lastLogged;
+  LogLevel logLevel;
+  std::string message;
+  int intervalCount;
+  int totalCount;
 };
 
 namespace Umbra {
@@ -92,16 +112,28 @@ class Logger {
   std::string name;
   bool debugEnabled;
   std::ofstream logFile;
+  bool fileEnabled;
   std::string fileName;
+  std::unordered_map<std::string, LogEntry> logCache;
 
   [[nodiscard]] bool shouldLogMessage(LogLevel level) const;
   [[nodiscard]] bool getDebugEnabled() const;
   void createAndOpenLogFile();
   void closeLogFile();
+  void writeToFile(LogLevel level, std::string message);
+  void writeLineToFile(LogEntry entry);
+  void writeLineToCsvFileHandler(LogEntry entry);
+  void writeLineToJsonFileHandler(LogEntry entry);
+  void writeLineToPlainTextFileHandler(LogEntry entry);
   void setColor(LogLevel level);
   void resetColor();
   std::string getLevelString(LogLevel level);
   std::string getTimestamp();
+
+  std::unordered_map<std::string, std::function<void(LogEntry entry)>> handlers = {
+      {".csv", [this](LogEntry entry) { this->writeLineToCsvFileHandler(entry); }},
+      {".json", [this](LogEntry entry) { this->writeLineToJsonFileHandler(entry); }}
+  };
 
   template <typename... Args>
   void logFormattedString(LogLevel level, const std::format_string<Args...> format, Args&&... args)
