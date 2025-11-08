@@ -19,8 +19,10 @@ Makefile
 
 # Logs
 *.log
+log/*
 
 # Generated files
 *.swp
 *~
 *.tmp
+*.cache/*

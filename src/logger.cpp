@@ -3,6 +3,7 @@
 //
 
 #include <umbra/logger.h>
+#include <filesystem>
 
 namespace Umbra {
 namespace Logging {
@@ -15,20 +16,15 @@ Logger::Logger(std::string name, bool debugEnabled)
 
 Logger::Logger(std::string name, std::string fileName, bool debugEnabled)
 {
-  name = std::move(name);
+  this->name = std::move(name);
   this->debugEnabled = debugEnabled;
   this->fileName = fileName;
-  this->logFile.open(fileName, std::ios::out | std::ios::app);
-  if (!this->logFile.is_open()) {
-    std::cerr << "Error: Could not open log file." << std::endl;
-  }
+  this->createAndOpenLogFile();
 }
 
 Logger::~Logger()
 {
-  if (this->logFile.is_open()) {
-    this->logFile.close();
-  }
+  this->closeLogFile();
 }
 
 void Logger::setColor(LogLevel level)
@@ -135,6 +131,33 @@ bool Logger::disableDebugging()
 bool Logger::getDebugEnabled() const
 {
   return debugEnabled;
+}
+
+void Logger::createAndOpenLogFile()
+{
+  try {
+    std::filesystem::path logDir = "log";
+    if (!std::filesystem::exists(logDir)) {
+      std::filesystem::create_directory(logDir);
+    }
+
+    std::filesystem::path filePath = logDir / this->fileName;
+
+    // Open the log file for writing
+    this->logFile.open(filePath, std::ios::app);
+    if (!this->logFile.is_open()) {
+      throw std::runtime_error("Failed to open log file: " + filePath.string());
+    }
+  }
+  catch (const std::exception& e) {
+    std::cerr << "Logger initialization error: " << e.what() << std::endl;
+  }
+}
+
+void Logger::closeLogFile(){
+  if(this->logFile.is_open()){
+    this->logFile.close();
+  }
 }
 
 }  // namespace Logging

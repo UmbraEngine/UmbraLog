@@ -1,12 +1,10 @@
 #pragma once
 
-#include <chrono>
 #include <ctime>
 #include <format>
 #include <fstream>
 #include <iostream>
 #include <utility>
-#include <sstream>
 #include <string>
 
 const int LOG_LEVEL_TRACE = 0;
@@ -98,6 +96,8 @@ class Logger {
 
   [[nodiscard]] bool shouldLogMessage(LogLevel level) const;
   [[nodiscard]] bool getDebugEnabled() const;
+  void createAndOpenLogFile();
+  void closeLogFile();
   void setColor(LogLevel level);
   void resetColor();
   std::string getLevelString(LogLevel level);

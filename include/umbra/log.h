@@ -2,7 +2,6 @@
 
 #include <umbra/logger.h>
 #include <string>
-#include <format>
 
 namespace Umbra {
 namespace Logging {

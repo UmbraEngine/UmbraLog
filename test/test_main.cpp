@@ -3,7 +3,7 @@
 
 int main()
 {
-  Umbra::Logging::Log::init();
+  Umbra::Logging::Log::init("log.txt", true);
   LOG_CORE_TRACE("{} Testing Internal Trace Logging", 1);
   LOG_CORE_DEBUG("{} Testing Internal Debug Logging", 2);
   LOG_CORE_INFO("{} Testing Internal Info Logging", 3);

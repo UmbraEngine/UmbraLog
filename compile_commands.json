@@ -1,38 +1,26 @@
 [
 {
-  "directory": "/Users/deanwilson/development/game-development/cpp/umbra-logging/build",
-  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ -DUMBRA_BUILD_DLL -I/Users/deanwilson/development/game-development/cpp/umbra-logging/include  -stdlib=libc++ -std=c++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk -mmacosx-version-min=15.6 -Winvalid-pch -Xclang -emit-pch -Xclang -include -Xclang /Users/deanwilson/development/game-development/cpp/umbra-logging/build/CMakeFiles/UmbraLog.dir/cmake_pch.hxx -x c++-header -o CMakeFiles/UmbraLog.dir/cmake_pch.hxx.pch -c /Users/deanwilson/development/game-development/cpp/umbra-logging/build/CMakeFiles/UmbraLog.dir/cmake_pch.hxx.cxx",
-  "file": "/Users/deanwilson/development/game-development/cpp/umbra-logging/build/CMakeFiles/UmbraLog.dir/cmake_pch.hxx.cxx",
-  "output": "CMakeFiles/UmbraLog.dir/cmake_pch.hxx.pch"
+  "directory": "/Users/deanwilson/development/game-development/cpp/UmbraLog/build",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  -I/Users/deanwilson/development/game-development/cpp/UmbraLog/include  -stdlib=libc++ -std=c++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk -mmacosx-version-min=15.6 -Winvalid-pch -Xclang -emit-pch -Xclang -include -Xclang /Users/deanwilson/development/game-development/cpp/UmbraLog/build/CMakeFiles/umbra_log.dir/cmake_pch.hxx -x c++-header -o CMakeFiles/umbra_log.dir/cmake_pch.hxx.pch -c /Users/deanwilson/development/game-development/cpp/UmbraLog/build/CMakeFiles/umbra_log.dir/cmake_pch.hxx.cxx",
+  "file": "/Users/deanwilson/development/game-development/cpp/UmbraLog/build/CMakeFiles/umbra_log.dir/cmake_pch.hxx.cxx",
+  "output": "CMakeFiles/umbra_log.dir/cmake_pch.hxx.pch"
 },
 {
-  "directory": "/Users/deanwilson/development/game-development/cpp/umbra-logging/build",
-  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ -DUMBRA_BUILD_DLL -I/Users/deanwilson/development/game-development/cpp/umbra-logging/include  -stdlib=libc++ -std=c++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk -mmacosx-version-min=15.6 -Winvalid-pch -Xclang -include-pch -Xclang /Users/deanwilson/development/game-development/cpp/umbra-logging/build/CMakeFiles/UmbraLog.dir/cmake_pch.hxx.pch -Xclang -include -Xclang /Users/deanwilson/development/game-development/cpp/umbra-logging/build/CMakeFiles/UmbraLog.dir/cmake_pch.hxx -o CMakeFiles/UmbraLog.dir/src/log.cpp.o -c /Users/deanwilson/development/game-development/cpp/umbra-logging/src/log.cpp",
-  "file": "/Users/deanwilson/development/game-development/cpp/umbra-logging/src/log.cpp",
-  "output": "CMakeFiles/UmbraLog.dir/src/log.cpp.o"
+  "directory": "/Users/deanwilson/development/game-development/cpp/UmbraLog/build",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  -I/Users/deanwilson/development/game-development/cpp/UmbraLog/include  -stdlib=libc++ -std=c++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk -mmacosx-version-min=15.6 -Winvalid-pch -Xclang -include-pch -Xclang /Users/deanwilson/development/game-development/cpp/UmbraLog/build/CMakeFiles/umbra_log.dir/cmake_pch.hxx.pch -Xclang -include -Xclang /Users/deanwilson/development/game-development/cpp/UmbraLog/build/CMakeFiles/umbra_log.dir/cmake_pch.hxx -o CMakeFiles/umbra_log.dir/src/log.cpp.o -c /Users/deanwilson/development/game-development/cpp/UmbraLog/src/log.cpp",
+  "file": "/Users/deanwilson/development/game-development/cpp/UmbraLog/src/log.cpp",
+  "output": "CMakeFiles/umbra_log.dir/src/log.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/game-development/cpp/umbra-logging/build",
-  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ -DUMBRA_BUILD_DLL -I/Users/deanwilson/development/game-development/cpp/umbra-logging/include  -stdlib=libc++ -std=c++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk -mmacosx-version-min=15.6 -Winvalid-pch -Xclang -include-pch -Xclang /Users/deanwilson/development/game-development/cpp/umbra-logging/build/CMakeFiles/UmbraLog.dir/cmake_pch.hxx.pch -Xclang -include -Xclang /Users/deanwilson/development/game-development/cpp/umbra-logging/build/CMakeFiles/UmbraLog.dir/cmake_pch.hxx -o CMakeFiles/UmbraLog.dir/src/logger.cpp.o -c /Users/deanwilson/development/game-development/cpp/umbra-logging/src/logger.cpp",
-  "file": "/Users/deanwilson/development/game-development/cpp/umbra-logging/src/logger.cpp",
-  "output": "CMakeFiles/UmbraLog.dir/src/logger.cpp.o"
+  "directory": "/Users/deanwilson/development/game-development/cpp/UmbraLog/build",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  -I/Users/deanwilson/development/game-development/cpp/UmbraLog/include  -stdlib=libc++ -std=c++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk -mmacosx-version-min=15.6 -Winvalid-pch -Xclang -include-pch -Xclang /Users/deanwilson/development/game-development/cpp/UmbraLog/build/CMakeFiles/umbra_log.dir/cmake_pch.hxx.pch -Xclang -include -Xclang /Users/deanwilson/development/game-development/cpp/UmbraLog/build/CMakeFiles/umbra_log.dir/cmake_pch.hxx -o CMakeFiles/umbra_log.dir/src/logger.cpp.o -c /Users/deanwilson/development/game-development/cpp/UmbraLog/src/logger.cpp",
+  "file": "/Users/deanwilson/development/game-development/cpp/UmbraLog/src/logger.cpp",
+  "output": "CMakeFiles/umbra_log.dir/src/logger.cpp.o"
 },
 {
-  "directory": "/Users/deanwilson/development/game-development/cpp/umbra-logging/build",
-  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ -DUMBRA_BUILD_DLL -I/Users/deanwilson/development/game-development/cpp/umbra-logging/include  -stdlib=libc++ -std=c++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk -mmacosx-version-min=15.6 -o CMakeFiles/test_UmbraLog.dir/test/test_main.cpp.o -c /Users/deanwilson/development/game-development/cpp/umbra-logging/test/test_main.cpp",
-  "file": "/Users/deanwilson/development/game-development/cpp/umbra-logging/test/test_main.cpp",
+  "directory": "/Users/deanwilson/development/game-development/cpp/UmbraLog/build",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  -I/Users/deanwilson/development/game-development/cpp/UmbraLog/include  -stdlib=libc++ -std=c++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk -mmacosx-version-min=15.6 -o CMakeFiles/test_UmbraLog.dir/test/test_main.cpp.o -c /Users/deanwilson/development/game-development/cpp/UmbraLog/test/test_main.cpp",
+  "file": "/Users/deanwilson/development/game-development/cpp/UmbraLog/test/test_main.cpp",
   "output": "CMakeFiles/test_UmbraLog.dir/test/test_main.cpp.o"
-},
-{
-  "directory": "/Users/deanwilson/development/game-development/cpp/umbra-logging/build",
-  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ -DUMBRA_BUILD_DLL -I/Users/deanwilson/development/game-development/cpp/umbra-logging/include  -stdlib=libc++ -std=c++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk -mmacosx-version-min=15.6 -o CMakeFiles/test_UmbraLog.dir/src/log.cpp.o -c /Users/deanwilson/development/game-development/cpp/umbra-logging/src/log.cpp",
-  "file": "/Users/deanwilson/development/game-development/cpp/umbra-logging/src/log.cpp",
-  "output": "CMakeFiles/test_UmbraLog.dir/src/log.cpp.o"
-},
-{
-  "directory": "/Users/deanwilson/development/game-development/cpp/umbra-logging/build",
-  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ -DUMBRA_BUILD_DLL -I/Users/deanwilson/development/game-development/cpp/umbra-logging/include  -stdlib=libc++ -std=c++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.0.sdk -mmacosx-version-min=15.6 -o CMakeFiles/test_UmbraLog.dir/src/logger.cpp.o -c /Users/deanwilson/development/game-development/cpp/umbra-logging/src/logger.cpp",
-  "file": "/Users/deanwilson/development/game-development/cpp/umbra-logging/src/logger.cpp",
-  "output": "CMakeFiles/test_UmbraLog.dir/src/logger.cpp.o"
 }
 ]
